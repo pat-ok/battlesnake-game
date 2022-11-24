@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static spark.Spark.*;
 
@@ -158,22 +155,22 @@ public class Snake {
 
             // Current board state
             Board state = new Board(moveRequest);
-//            // Current head position
-//            Point head = state.getYou().getHead();
-//            // Directions around head
-//            Point moveUp = new Point(head.getX(), head.getY() + 1);
-//            Point moveDown = new Point(head.getX(), head.getY() - 1);
-//            Point moveLeft = new Point(head.getX() - 1, head.getY());
-//            Point moveRight = new Point(head.getX() + 1, head.getY());
-//
-//            // Determine safe moves
-//            ArrayList<Point> smarterMoves = getSmarterMoves(state, moveUp, moveDown, moveLeft, moveRight);
-//
-//            // Choose a random direction to move in
-//            final int choice = new Random().nextInt(smarterMoves.size());
-//            final String move = pointToString(smarterMoves.get(choice), moveUp, moveDown, moveLeft);
-//
-//            LOG.info("MOVE {}", move);
+            // Current head position
+            Point head = state.getYou().getHead();
+            // Directions around head
+            Point moveUp = new Point(head.getX(), head.getY() + 1);
+            Point moveDown = new Point(head.getX(), head.getY() - 1);
+            Point moveLeft = new Point(head.getX() - 1, head.getY());
+            Point moveRight = new Point(head.getX() + 1, head.getY());
+
+            // Determine safe moves
+            ArrayList<Point> smarterMoves = getSmarterMoves(state, moveUp, moveDown, moveLeft, moveRight);
+
+            // Choose a random direction to move in
+            final int choice = new Random().nextInt(smarterMoves.size());
+            final String move = pointToString(smarterMoves.get(choice), moveUp, moveDown, moveLeft);
+
+            LOG.info("MOVE {}", move);
 
             Map<String, String> response = new HashMap<>();
             response.put("move", "right");
