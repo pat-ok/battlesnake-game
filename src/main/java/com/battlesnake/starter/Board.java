@@ -14,18 +14,23 @@ public class Board {
 
     public Board(JsonNode moveRequest) {
         you = new BattleSnake(moveRequest.get("you"));
-        opp1 = new BattleSnake(moveRequest.get("snakes").get(1));
-        opp2 = new BattleSnake(moveRequest.get("snakes").get(2));
-        opp3 = new BattleSnake(moveRequest.get("snakes").get(3));
-
         occupied.addAll(you.getBody());
         occupied.remove(you.getTail());
-        occupied.addAll(opp1.getBody());
-        occupied.remove(opp1.getTail());
-        occupied.addAll(opp2.getBody());
-        occupied.remove(opp2.getTail());
-        occupied.addAll(opp3.getBody());
-        occupied.remove(opp3.getTail());
+        if (moveRequest.get("snakes").size() > 1) {
+            opp1 = new BattleSnake(moveRequest.get("snakes").get(1));
+            occupied.addAll(opp1.getBody());
+            occupied.remove(opp1.getTail());
+        }
+        if (moveRequest.get("snakes").size() > 2) {
+            opp2 = new BattleSnake(moveRequest.get("snakes").get(2));
+            occupied.addAll(opp2.getBody());
+            occupied.remove(opp2.getTail());
+        }
+        if (moveRequest.get("snakes").size() > 3) {
+            opp3 = new BattleSnake(moveRequest.get("snakes").get(3));
+            occupied.addAll(opp3.getBody());
+            occupied.remove(opp3.getTail());
+        }
 
         for (JsonNode food : moveRequest.get("food")) {
             this.food.add(new Food(new Point(food.get("x").asInt(), food.get("y").asInt())));
