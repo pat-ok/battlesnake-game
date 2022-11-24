@@ -173,6 +173,8 @@ public class Snake {
                 LOG.info("SAFE MOVE {}", point.getY());
             }
 
+            goodMoves.addAll(smarterMoves);
+
 //            ArrayList<Point> evenSmarterMoves = getEvenSmarterMoves(state, smarterMoves);
 //            if (evenSmarterMoves.size() != 0) {
 //                goodMoves.addAll(evenSmarterMoves);
@@ -188,13 +190,13 @@ public class Snake {
             if ((moveRequest.get("you").get("health").asInt() < 30 ||
                     moveRequest.get("you").get("length").asInt() < 6) &&
                     !state.getFood().isEmpty()) {
-                direction = pointToString(chaseFood(smarterMoves, state), moveUp, moveDown, moveLeft);
+                direction = pointToString(chaseFood(goodMoves, state), moveUp, moveDown, moveLeft);
                 response.put("move", direction);
                 return response;
 
                 // Otherwise it will chase tail
             } else {
-                direction = pointToString(chaseTail(smarterMoves, state), moveUp, moveDown, moveLeft);
+                direction = pointToString(chaseTail(goodMoves, state), moveUp, moveDown, moveLeft);
                 response.put("move", direction);
                 return response;
             }
