@@ -173,16 +173,16 @@ public class Snake {
                 LOG.info("SAFE MOVE {}", point.getY());
             }
 
-            ArrayList<Point> evenSmarterMoves = getEvenSmarterMoves(state, smarterMoves);
-            if (evenSmarterMoves.size() != 0) {
-                goodMoves.addAll(evenSmarterMoves);
-            } else {
-                goodMoves.addAll(smarterMoves);
-            }
+//            ArrayList<Point> evenSmarterMoves = getEvenSmarterMoves(state, smarterMoves);
+//            if (evenSmarterMoves.size() != 0) {
+//                goodMoves.addAll(evenSmarterMoves);
+//            } else {
+//                goodMoves.addAll(smarterMoves);
+//            }
 
             // Choose a random direction to move in
-            final int choice = new Random().nextInt(goodMoves.size());
-            final String move = pointToString(goodMoves.get(choice), moveUp, moveDown, moveLeft);
+            final int choice = new Random().nextInt(smarterMoves.size());
+            final String move = pointToString(smarterMoves.get(choice), moveUp, moveDown, moveLeft);
 
             LOG.info("MOVE {}", move);
 
@@ -232,17 +232,17 @@ public class Snake {
             return smarterMoves;
         }
 
-        public ArrayList<Point> getEvenSmarterMoves(Board state, ArrayList<Point> smarterMoves) {
-            ArrayList<Point> evenSmarterMoves = new ArrayList<>();
-            evenSmarterMoves.addAll(smarterMoves);
-
-            for (Point smarterMove : evenSmarterMoves) {
-                if (state.getPreoccupied().contains(smarterMove)) {
-                    evenSmarterMoves.remove(smarterMove);
-                }
-            }
-            return evenSmarterMoves;
-        }
+//        public ArrayList<Point> getEvenSmarterMoves(Board state, ArrayList<Point> smarterMoves) {
+//            ArrayList<Point> evenSmarterMoves = new ArrayList<>();
+//            evenSmarterMoves.addAll(smarterMoves);
+//
+//            for (Point smarterMove : evenSmarterMoves) {
+//                if (state.getPreoccupied().contains(smarterMove)) {
+//                    evenSmarterMoves.remove(smarterMove);
+//                }
+//            }
+//            return evenSmarterMoves;
+//        }
 
         /**
          * Remove the 'neck' direction from the list of possible moves
