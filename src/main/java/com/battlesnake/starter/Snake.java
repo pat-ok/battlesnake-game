@@ -175,15 +175,15 @@ public class Snake {
 
             goodMoves.addAll(smarterMoves);
 
-            for (Point move : goodMoves) {
-                if (goodMoves.size() != 0) {
-                    if (state.getPreoccupied().contains(move)) {
-                        goodMoves.remove(move);
-                    }
-                } else {
-                    break;
-                }
-            }
+//            for (Point move : goodMoves) {
+//                if (goodMoves.size() != 0) {
+//                    if (state.getPreoccupied().contains(move)) {
+//                        goodMoves.remove(move);
+//                    }
+//                } else {
+//                    break;
+//                }
+//            }
 
 //            ArrayList<Point> evenSmarterMoves = getEvenSmarterMoves(state, smarterMoves);
 //            if (evenSmarterMoves.size() != 0) {
@@ -198,7 +198,7 @@ public class Snake {
 
             // If snake is hungry or if the snake is shorter than 6, chase food
             if ((moveRequest.get("you").get("health").asInt() < 30 ||
-                    moveRequest.get("you").get("length").asInt() < 6) &&
+                    moveRequest.get("you").get("length").asInt() < 4) &&
                     !state.getFood().isEmpty()) {
                 direction = pointToString(chaseFood(goodMoves, state), moveUp, moveDown, moveLeft);
                 response.put("move", direction);
