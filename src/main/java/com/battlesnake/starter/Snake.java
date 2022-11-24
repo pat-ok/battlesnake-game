@@ -180,15 +180,75 @@ public class Snake {
 //                goodMoves.addAll(smarterMoves);
 //            }
 
-            // Choose a random direction to move in
-            final int choice = new Random().nextInt(smarterMoves.size());
-            final String move = pointToString(smarterMoves.get(choice), moveUp, moveDown, moveLeft);
-
-            LOG.info("MOVE {}", move);
-
+            String direction = "up";
             Map<String, String> response = new HashMap<>();
-            response.put("move", move);
-            return response;
+
+
+            // If snake is hungry or if the snake is shorter than 6, chase food
+            if ((moveRequest.get("you").get("health").asInt() < 30 ||
+                    moveRequest.get("you").get("length").asInt() < 6) &&
+                    !state.getFood().isEmpty()) {
+                direction = pointToString(chaseFood(smarterMoves, state), moveUp, moveDown, moveLeft);
+                response.put("move", direction);
+                return response;
+
+                // Otherwise it will chase tail
+            } else {
+                direction = pointToString(chaseTail(smarterMoves, state), moveUp, moveDown, moveLeft);
+                response.put("move", direction);
+                return response;
+            }
+
+
+
+
+
+
+
+        }
+
+        public static Point chaseTail(ArrayList<Point> smarterMoves, Board state) {
+            // find tail
+            Point tail = state.getYou().getTail();
+
+            // find move that brings snake closer to food
+            Point closerMove = null; // closer move
+
+            double closestDirection = 20; // closest direction to food
+            for (Point point : smarterMoves) {
+                double temp = calculateDistance(point, tail);
+                if (temp < closestDirection) {
+                    closestDirection = temp;
+                    closerMove = point;
+                }
+            }
+            return closerMove;
+        }
+
+        public static Point chaseFood(ArrayList<Point> smarterMoves, Board state) {
+            // find closest food point
+            ArrayList<Food> foods = state.getFood();
+            Point food = null; // closest food
+            double closestFood = 20; // closest food location
+            for (Food piece : foods) {
+                double temp = calculateDistance(state.getYou().getHead(), piece.getLocation());
+                if (temp < closestFood) {
+                    closestFood = temp;
+                    food = piece.getLocation();
+                }
+            }
+
+            // find move that brings snake closer to food
+            Point closerMove = null; // closer move
+            double closestDirection = 20; // closest direction to food
+            for (Point point : smarterMoves) {
+                double temp = calculateDistance(point, food);
+                if (temp < closestDirection) {
+                    closestDirection = temp;
+                    closerMove = point;
+                }
+            }
+            return closerMove;
         }
 
 
