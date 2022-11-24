@@ -207,7 +207,7 @@ public class Snake {
 
             // If snake is hungry or if the snake is shorter than 6, chase food
             if ((moveRequest.get("you").get("health").asInt() < 17 ||
-                    moveRequest.get("you").get("length").asInt() < 4) &&
+                    moveRequest.get("you").get("length").asInt() < 4 || moveRequest.get("you").get("length").asInt() % 2 != 0) &&
                     !state.getFood().isEmpty()) {
                 direction = pointToString(chaseFood(goodMoves, state), moveUp, moveDown, moveLeft);
                 response.put("move", direction);
