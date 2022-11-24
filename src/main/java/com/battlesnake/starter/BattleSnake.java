@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class BattleSnake {
     private Point head;
+    private ArrayList<Point> aroundHead = new ArrayList<>();
     private Point neck;
     private Point tail;
     private ArrayList<Point> body = new ArrayList<>();
@@ -42,6 +43,11 @@ public class BattleSnake {
             // record body
             body.add(temp);
         }
+
+        this.aroundHead.add(new Point(head.getX(), head.getY() + 1));
+        this.aroundHead.add(new Point(head.getX(), head.getY() - 1));
+        this.aroundHead.add(new Point(head.getX() + 1, head.getY()));
+        this.aroundHead.add(new Point(head.getX() - 1, head.getY()));
     }
 
     public Point getHead() {
@@ -66,5 +72,9 @@ public class BattleSnake {
 
     public int getLength() {
         return this.length;
+    }
+
+    public ArrayList<Point> getAroundHead() {
+        return this.aroundHead;
     }
 }

@@ -163,16 +163,26 @@ public class Snake {
             Point moveLeft = new Point(head.getX() - 1, head.getY());
             Point moveRight = new Point(head.getX() + 1, head.getY());
 
+
             // Determine safe moves
+            ArrayList<Point> goodMoves = new ArrayList<Point>();
+
             ArrayList<Point> smarterMoves = getSmarterMoves(state, moveUp, moveDown, moveLeft, moveRight);
             for (Point point : smarterMoves) {
                 LOG.info("SAFE MOVE {}", point.getX());
                 LOG.info("SAFE MOVE {}", point.getY());
             }
 
+            ArrayList<Point> evenSmarterMoves = getEvenSmarterMoves(state, smarterMoves);
+            if (evenSmarterMoves.size() != 0) {
+                goodMoves.addAll(evenSmarterMoves);
+            } else {
+                goodMoves.addAll(smarterMoves);
+            }
+
             // Choose a random direction to move in
-            final int choice = new Random().nextInt(smarterMoves.size());
-            final String move = pointToString(smarterMoves.get(choice), moveUp, moveDown, moveLeft);
+            final int choice = new Random().nextInt(goodMoves.size());
+            final String move = pointToString(goodMoves.get(choice), moveUp, moveDown, moveLeft);
 
             LOG.info("MOVE {}", move);
 
@@ -214,6 +224,18 @@ public class Snake {
                 smarterMoves.remove(moveRight);
             }
             return smarterMoves;
+        }
+
+        public ArrayList<Point> getEvenSmarterMoves(Board state, ArrayList<Point> smarterMoves) {
+            ArrayList<Point> evenSmarterMoves = new ArrayList<>();
+            evenSmarterMoves.addAll(smarterMoves);
+
+            for (Point smarterMove : evenSmarterMoves) {
+                if (state.getPreoccupied().contains(smarterMove)) {
+                    evenSmarterMoves.remove(smarterMove);
+                }
+            }
+            return evenSmarterMoves;
         }
 
         /**
