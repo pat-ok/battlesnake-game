@@ -9,8 +9,8 @@ public class Board {
     private BattleSnake opp1;
     private BattleSnake opp2;
     private BattleSnake opp3;
-    private ArrayList<Point> occupied;
-    private ArrayList<Food> food;
+    private ArrayList<Point> occupied = new ArrayList<>();
+    private ArrayList<Food> food = new ArrayList<>();
 
     public Board(JsonNode moveRequest) {
         you = new BattleSnake(moveRequest.get("you"));
