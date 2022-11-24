@@ -206,7 +206,8 @@ public class Snake {
             Map<String, String> response = new HashMap<>();
 
             // If snake is hungry or if the snake is shorter than 6, chase food
-            if ((moveRequest.get("you").get("health").asInt() < 17) &&
+            if ((moveRequest.get("you").get("health").asInt() < 17 ||
+                    moveRequest.get("you").get("length").asInt() < 4) &&
                     !state.getFood().isEmpty()) {
                 direction = pointToString(chaseFood(goodMoves, state), moveUp, moveDown, moveLeft);
                 response.put("move", direction);
@@ -218,29 +219,6 @@ public class Snake {
                 response.put("move", direction);
                 return response;
             }
-
-
-//            // If snake is hungry or if the snake is shorter than 6, chase food
-//            if ((moveRequest.get("you").get("health").asInt() < 20 ||
-//                    moveRequest.get("you").get("length").asInt() < 4) &&
-//                    !state.getFood().isEmpty()) {
-//                direction = pointToString(chaseFood(goodMoves, state), moveUp, moveDown, moveLeft);
-//                response.put("move", direction);
-//                return response;
-//
-//                // Otherwise it will chase tail
-//            } else {
-//                direction = pointToString(chaseTail(goodMoves, state), moveUp, moveDown, moveLeft);
-//                response.put("move", direction);
-//                return response;
-//            }
-
-
-
-
-
-
-
         }
 
         public static Point chaseTail(ArrayList<Point> smarterMoves, Board state) {
