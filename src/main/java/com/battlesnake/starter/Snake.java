@@ -175,15 +175,15 @@ public class Snake {
 
             goodMoves.addAll(smarterMoves);
 
-            for (Point point : goodMoves) {
-                if (state.getPreoccupied().contains(point)) {
-                    goodMoves.remove(point);
-                }
-            }
-
-            if (goodMoves.isEmpty()) {
-                goodMoves.addAll(smarterMoves);
-            }
+//            for (Point point : goodMoves) {
+//                if (state.getPreoccupied().contains(point)) {
+//                    goodMoves.remove(point);
+//                }
+//            }
+//
+//            if (goodMoves.isEmpty()) {
+//                goodMoves.addAll(smarterMoves);
+//            }
 
 //            for (Point move : goodMoves) {
 //                if (goodMoves.size() != 0) {
