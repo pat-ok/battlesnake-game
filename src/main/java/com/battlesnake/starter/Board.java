@@ -9,6 +9,7 @@ public class Board {
     private BattleSnake opp1;
     private BattleSnake opp2;
     private BattleSnake opp3;
+    private BattleSnake opp4;
     private ArrayList<Point> occupied = new ArrayList<>();
     private ArrayList<Food> food = new ArrayList<>();
 
@@ -16,20 +17,29 @@ public class Board {
         you = new BattleSnake(moveRequest.get("you"));
         occupied.addAll(you.getBody());
         occupied.remove(you.getTail());
-        if (moveRequest.get("board").get("snakes").size() > 1) {
-            opp1 = new BattleSnake(moveRequest.get("board").get("snakes").get(1));
+
+        if (moveRequest.get("board").get("snakes").get(0) != null && moveRequest.get("board").get("snakes").get(0).get("name").toString() != "battlesnake-test") {
+            opp1 = new BattleSnake(moveRequest.get("board").get("snakes").get(0));
             occupied.addAll(opp1.getBody());
             occupied.remove(opp1.getTail());
         }
-        if (moveRequest.get("board").get("snakes").size() > 2) {
-            opp2 = new BattleSnake(moveRequest.get("board").get("snakes").get(2));
+
+        if (moveRequest.get("board").get("snakes").get(1) != null && moveRequest.get("board").get("snakes").get(1).get("name").toString() != "battlesnake-test") {
+            opp2 = new BattleSnake(moveRequest.get("board").get("snakes").get(1));
             occupied.addAll(opp2.getBody());
             occupied.remove(opp2.getTail());
         }
-        if (moveRequest.get("board").get("snakes").size() > 3) {
-            opp3 = new BattleSnake(moveRequest.get("board").get("snakes").get(3));
+
+        if (moveRequest.get("board").get("snakes").get(2) != null && moveRequest.get("board").get("snakes").get(2).get("name").toString() != "battlesnake-test") {
+            opp3 = new BattleSnake(moveRequest.get("board").get("snakes").get(2));
             occupied.addAll(opp3.getBody());
             occupied.remove(opp3.getTail());
+        }
+
+        if (moveRequest.get("board").get("snakes").get(3) != null && moveRequest.get("board").get("snakes").get(3).get("name").toString() != "battlesnake-test") {
+            opp4 = new BattleSnake(moveRequest.get("board").get("snakes").get(3));
+            occupied.addAll(opp4.getBody());
+            occupied.remove(opp4.getTail());
         }
 
         for (JsonNode food : moveRequest.get("board").get("food")) {
