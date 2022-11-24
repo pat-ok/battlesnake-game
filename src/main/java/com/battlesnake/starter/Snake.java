@@ -176,7 +176,7 @@ public class Snake {
             goodMoves.addAll(smarterMoves);
 
             for (Point point : goodMoves) {
-                if (state.getOccupied().contains(point)) {
+                if (state.getPreoccupied().contains(point)) {
                     goodMoves.remove(point);
                 }
             }
