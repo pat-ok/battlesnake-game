@@ -8,7 +8,7 @@ public class BattleSnake {
     private Point head;
     private Point neck;
     private Point tail;
-    private ArrayList<Point> body;
+    private ArrayList<Point> body = new ArrayList<>();
     private int health;
     private int length;
 

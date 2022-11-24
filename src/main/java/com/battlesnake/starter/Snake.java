@@ -157,7 +157,7 @@ public class Snake {
              */
 
             // Current board state
-//            Board state = new Board(moveRequest);
+            Board state = new Board(moveRequest);
 //            // Current head position
 //            Point head = state.getYou().getHead();
 //            // Directions around head
