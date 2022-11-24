@@ -159,39 +159,63 @@ public class Snake {
              * 
              */
 
-            JsonNode head = moveRequest.get("you").get("head");
-            JsonNode body = moveRequest.get("you").get("body");
+            // Current board state
+            Board state = new Board(moveRequest);
+            // Current head position
+            Point head = state.getYou().getHead();
+            // Directions around head
+            Point moveUp = new Point(head.getX(), head.getY() + 1);
+            Point moveDown = new Point(head.getX(), head.getY() - 1);
+            Point moveLeft = new Point(head.getX() - 1, head.getY());
+            Point moveRight = new Point(head.getX() + 1, head.getY());
 
-            ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
-
-            // Don't allow your Battlesnake to move back in on it's own neck
-            avoidMyNeck(head, body, possibleMoves);
-
-            // TODO: Using information from 'moveRequest', find the edges of the board and
-            // don't
-            // let your Battlesnake move beyond them board_height = ? board_width = ?
-
-            // TODO Using information from 'moveRequest', don't let your Battlesnake pick a
-            // move
-            // that would hit its own body
-
-            // TODO: Using information from 'moveRequest', don't let your Battlesnake pick a
-            // move
-            // that would collide with another Battlesnake
-
-            // TODO: Using information from 'moveRequest', make your Battlesnake move
-            // towards a
-            // piece of food on the board
+            // Determine safe moves
+            ArrayList<Point> smarterMoves = getSmarterMoves(state, moveUp, moveDown, moveLeft, moveRight);
 
             // Choose a random direction to move in
-            final int choice = new Random().nextInt(possibleMoves.size());
-            final String move = possibleMoves.get(choice);
+            final int choice = new Random().nextInt(smarterMoves.size());
+            final String move = pointToString(smarterMoves.get(choice), moveUp, moveDown, moveLeft);
 
             LOG.info("MOVE {}", move);
 
             Map<String, String> response = new HashMap<>();
-            response.put("move", "right");
+            response.put("move", move);
             return response;
+        }
+
+        public String pointToString(Point point, Point moveUp, Point moveDown, Point moveLeft) {
+            if (point == moveUp) {
+                return "up";
+            } else if (point == moveDown) {
+                return "down";
+            } else if (point == moveLeft) {
+                return "left";
+            } else {
+                return "right";
+            }
+        }
+
+        // Given a board, list the moves that are not immediately dangerous
+        // Exclude moves that will be in own or opponent snake bodies and out of bounds
+        public ArrayList<Point> getSmarterMoves(Board state, Point moveUp, Point moveDown, Point moveLeft, Point moveRight) {
+            ArrayList<Point> smarterMoves = new ArrayList<>(Arrays.asList(moveUp, moveDown, moveLeft, moveRight));
+
+            if (moveUp.getY() > 10 || state.getOccupied().contains(moveUp)) {
+                smarterMoves.remove(moveUp);
+            }
+
+            if (moveDown.getY() < 0 || state.getOccupied().contains(moveDown)) {
+                smarterMoves.remove(moveDown);
+            }
+
+            if (moveLeft.getX() < 0 || state.getOccupied().contains(moveLeft)) {
+                smarterMoves.remove(moveLeft);
+            }
+
+            if (moveRight.getX() > 10 || state.getOccupied().contains(moveRight)) {
+                smarterMoves.remove(moveRight);
+            }
+            return smarterMoves;
         }
 
         /**
