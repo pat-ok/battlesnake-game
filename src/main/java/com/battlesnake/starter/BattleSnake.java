@@ -27,21 +27,20 @@ public class BattleSnake {
             // record head
             if (i == 0) {
                 this.head = temp;
-            } else {
-
-                // record neck
-                if (i == 1) {
-                    this.neck = temp;
-                }
-
-                // record tail
-                if (i == (length - 1)) {
-                    this.tail = temp;
-                }
-
-                // record body
-                body.add(temp);
             }
+
+            // record neck
+            if (i == 1) {
+                this.neck = temp;
+            }
+
+            // record tail
+            if (i == (length - 1)) {
+                this.tail = temp;
+            }
+
+            // record body
+            body.add(temp);
         }
     }
 
