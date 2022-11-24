@@ -191,6 +191,12 @@ public class Snake {
             return response;
         }
 
+
+        // Calculate the Euclidian distance between two points
+        public static double calculateDistance(Point a, Point b) {
+            return Math.sqrt(Math.pow((a.getX() - b.getX()), 2) + Math.pow((a.getY() - b.getY()), 2));
+        }
+
         public String pointToString(Point point, Point moveUp, Point moveDown, Point moveLeft) {
             if (point == moveUp) {
                 return "up";

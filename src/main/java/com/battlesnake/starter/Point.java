@@ -1,5 +1,7 @@
 package com.battlesnake.starter;
 
+import java.util.Objects;
+
 public class Point {
     private int x;
     private int y;
@@ -31,5 +33,10 @@ public class Point {
         Point object = (Point) obj;
 
         return this.x == object.getX() && this.y == object.getY();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
