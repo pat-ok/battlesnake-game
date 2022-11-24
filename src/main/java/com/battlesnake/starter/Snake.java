@@ -165,6 +165,7 @@ public class Snake {
 
             // Determine safe moves
             ArrayList<Point> smarterMoves = getSmarterMoves(state, moveUp, moveDown, moveLeft, moveRight);
+            LOG.info("SAFE MOVES {}", smarterMoves.toString());
 
             // Choose a random direction to move in
             final int choice = new Random().nextInt(smarterMoves.size());
