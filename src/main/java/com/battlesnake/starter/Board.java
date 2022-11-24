@@ -13,7 +13,7 @@ public class Board {
     private ArrayList<Food> food;
 
     public Board(JsonNode moveRequest) {
-        you = new BattleSnake(moveRequest.get("snakes").get("you"));
+        you = new BattleSnake(moveRequest.get("you"));
         opp1 = new BattleSnake(moveRequest.get("snakes").get(1));
         opp2 = new BattleSnake(moveRequest.get("snakes").get(2));
         opp3 = new BattleSnake(moveRequest.get("snakes").get(3));
