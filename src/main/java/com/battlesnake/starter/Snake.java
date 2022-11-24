@@ -190,7 +190,7 @@ public class Snake {
             LOG.info("MOVE {}", move);
 
             Map<String, String> response = new HashMap<>();
-            response.put("move", "down");
+            response.put("move", "right");
             return response;
         }
 
